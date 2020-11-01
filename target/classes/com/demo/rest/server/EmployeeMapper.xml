@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.springmybatis.dao.EmployeeMapper">
+  
+  <resultMap type="employee" id="result">
+  
+  <result property="employeeId" column="employee_id"/>
+  <result property="name" column="name"/>
+  <result property="gender" column="gender"/>
+  <result property="salary" column="salary"/>
+  <result property="city" column="city"/>
+  <result property="country" column="country"/>
+  </resultMap>
+  
+  <select id="getAllEmployees" resultType="employee" resultMap="result">
+   SELECT * FROM employee
+  </select>
+  
+  <insert id="insertEmployee" parameterType="employee" keyProperty="employee_id" useGeneratedKeys="false">
+    
+  INSERT INTO employee(employee_id, name, gender, salary, city, country)
+  VALUES(#{employeeId}, #{name}, #{gender}, #{salary}, #{city}, #{country})
+  </insert>
+  
+  <!-- <insert id="insertDestEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="false">
+    
+  INSERT INTO employee(id, employee_id, name, gender, salary, city, country)
+  VALUES(#{id}, #{employeeId}, #{name}, #{gender}, #{salary}, #{city}, #{country})
+  </insert> -->
+  
+   <delete id="deleteEmployee" parameterType="String">
+  
+  DELETE FROM employee WHERE employee_id = #{employeeId}
+  </delete>
+  
+  <select id="findById" parameterType="String" resultType="employee" resultMap="result">
+  
+  SELECT * FROM employee WHERE employee_id = #{employeeId}  
+  </select>
+  
+  <update id="editemployee" parameterType="employee">
+  UPDATE employee SET name = #{name}, gender = #{gender}, salary =#{salary}, city =#{city}, country =#{country}
+  WHERE employee_id = #{employeeId}
+  
+  </update>
+  </mapper>
+  
